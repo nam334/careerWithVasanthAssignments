@@ -113,21 +113,21 @@
 // Zeta | Technical Round: Deep Equality Utility
 // Question: Implement isDeepEqual(obj1, obj2). This is essential in frontend development for optimizing re-renders in components where you only want to update if the data actually changed.
 
-function isDeepEqual(obj1, obj2) {
-  if (obj1 === obj2) return true;
-  if (typeof obj1 !== typeof obj2) return false;
-  if (obj1 === null || obj2 === null) return obj1 === obj2;
-  if (typeof obj1 !== "object" || typeof obj2 !== "object") return false;
-  if (Object.keys(obj1).length !== Object.keys(obj2).length) return false;
-  //will chk for objects now
-  for (let [key, value] of Object.entries(obj1)) {
-    if (!(key in obj2)) return false;
-    else {
-      if (!isDeepEqual(value, obj2[key])) return false;
-    }
-  }
-  return true;
-}
+// function isDeepEqual(obj1, obj2) {
+//   if (obj1 === obj2) return true;
+//   if (typeof obj1 !== typeof obj2) return false;
+//   if (obj1 === null || obj2 === null) return obj1 === obj2;
+//   if (typeof obj1 !== "object" || typeof obj2 !== "object") return false;
+//   if (Object.keys(obj1).length !== Object.keys(obj2).length) return false;
+//   //will chk for objects now
+//   for (let [key, value] of Object.entries(obj1)) {
+//     if (!(key in obj2)) return false;
+//     else {
+//       if (!isDeepEqual(value, obj2[key])) return false;
+//     }
+//   }
+//   return true;
+// }
 
 // // --- Test Cases ---
 // const profileA = { name: "Vasanth", roles: ["admin", "mentor"], meta: { id: 1 } };
@@ -138,3 +138,63 @@ function isDeepEqual(obj1, obj2) {
 // console.log("Test 2 (Different Roles):", isDeepEqual(profileA, profileC)); // Expected: false
 // console.log("Test 3 (Nested Change):", isDeepEqual(profileA, {...profileB, meta: { id: 2 } })); // Expected: false
 // console.log("Test 4 (Primitive):", isDeepEqual(10, 10)); // Expected: true
+
+//**Question:** What will be logged? How do you fix this using the spread operator while keeping
+// the code readable?
+
+// const state = {
+//   user: { id: 101, details: { city: 'Bangalore' } },
+//   theme: 'dark'
+// };
+
+// const newState = {...state };
+// newState.user.details.city = 'Chennai';
+
+// console.log(state.user.details.city);
+// Expected output? Why did it change?
+
+//LONGEST SUBSTRING WITHOUT REPEATING CHARACTERS
+// Given a string s, find the length of the longest substring without duplicate characters.
+
+// Example 1:
+
+// Input: s = "abcabcbb"
+// Output: 3
+// Explanation: The answer is "abc", with the length of 3. Note that "bca" and "cab" are also correct answers.
+// Example 2:
+
+// Input: s = "bbbbb"
+// Output: 1
+// Explanation: The answer is "b", with the length of 1.
+// Example 3:
+
+// Input: s = "pwwkew"
+// Output: 3
+// Explanation: The answer is "wke", with the length of 3.
+// Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+
+var lengthOfLongestSubstring = function (s) {
+  let myMap = new Map();
+  let left = (right = 0);
+  let maxLength = 0;
+  while (right < s.length) {
+    if (myMap.has(s[right])) {
+      left = Math.max(myMap.get(s[right]) + 1, left);
+    }
+    myMap.set(s[right], right);
+    maxLength = Math.max(maxLength, right - left + 1);
+
+    right++;
+    console.log(
+      "maxlength is",
+      maxLength,
+      "left - ",
+      left,
+      "right -",
+      right < s.length,
+    );
+  }
+  return maxLength;
+};
+
+console.log(lengthOfLongestSubstring("abba"));
