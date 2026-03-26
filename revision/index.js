@@ -173,28 +173,59 @@
 // Explanation: The answer is "wke", with the length of 3.
 // Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
 
-var lengthOfLongestSubstring = function (s) {
-  let myMap = new Map();
-  let left = (right = 0);
-  let maxLength = 0;
-  while (right < s.length) {
-    if (myMap.has(s[right])) {
-      left = Math.max(myMap.get(s[right]) + 1, left);
-    }
-    myMap.set(s[right], right);
-    maxLength = Math.max(maxLength, right - left + 1);
+// var lengthOfLongestSubstring = function (s) {
+//   let myMap = new Map();
+//   let left = (right = 0);
+//   let maxLength = 0;
+//   while (right < s.length) {
+//     if (myMap.has(s[right])) {
+//       left = Math.max(myMap.get(s[right]) + 1, left);
+//     }
+//     myMap.set(s[right], right);
+//     maxLength = Math.max(maxLength, right - left + 1);
 
-    right++;
-    console.log(
-      "maxlength is",
-      maxLength,
-      "left - ",
-      left,
-      "right -",
-      right < s.length,
-    );
+//     right++;
+//     console.log(
+//       "maxlength is",
+//       maxLength,
+//       "left - ",
+//       left,
+//       "right -",
+//       right < s.length,
+//     );
+//   }
+//   return maxLength;
+// };
+
+// console.log(lengthOfLongestSubstring("abba"));
+
+// Atlassian | Machine Coding: The Ultimate Deep Clone
+// ### **Question:** Implement `deepClone(obj)`. It must handle circular references. Atlassian
+//  specifically checks for memory efficiency and handling of nested structures without
+//  using `JSON.stringify`.
+
+function deepClone(value, map = new WeakMap()) {
+  // 1. Base case: handle primitives
+  if (typeof value !== "object" || value === null) return value;
+  // 2. Handle circular references using map
+  if (map.has(value)) return map.get(value);
+  // 3. Recursive cloning for Arrays and Objects
+  let clone = Array.isArray(value) ? [] : {};
+  map.set(value, clone);
+  for (let [key, val] of Object.entries(value)) {
+    clone[key] = deepClone(val, map);
   }
-  return maxLength;
-};
+  return clone;
+}
 
-console.log(lengthOfLongestSubstring("abba"));
+// const original = {
+//   a: 1,
+//   b: { c: 2 },
+//   d: [11, 7],
+// };
+// original.self = original; // Circular reference!
+
+// const copy = deepClone(original);
+// console.log(copy!== original); // true
+// console.log(copy.b!== original.b); // true
+// console.log(copy.self === copy); // true (circularity preserved)
