@@ -204,19 +204,19 @@
 //  specifically checks for memory efficiency and handling of nested structures without
 //  using `JSON.stringify`.
 
-function deepClone(value, map = new WeakMap()) {
-  // 1. Base case: handle primitives
-  if (typeof value !== "object" || value === null) return value;
-  // 2. Handle circular references using map
-  if (map.has(value)) return map.get(value);
-  // 3. Recursive cloning for Arrays and Objects
-  let clone = Array.isArray(value) ? [] : {};
-  map.set(value, clone);
-  for (let [key, val] of Object.entries(value)) {
-    clone[key] = deepClone(val, map);
-  }
-  return clone;
-}
+// function deepClone(value, map = new WeakMap()) {
+//   // 1. Base case: handle primitives
+//   if (typeof value !== "object" || value === null) return value;
+//   // 2. Handle circular references using map
+//   if (map.has(value)) return map.get(value);
+//   // 3. Recursive cloning for Arrays and Objects
+//   let clone = Array.isArray(value) ? [] : {};
+//   map.set(value, clone);
+//   for (let [key, val] of Object.entries(value)) {
+//     clone[key] = deepClone(val, map);
+//   }
+//   return clone;
+// }
 
 // const original = {
 //   a: 1,
@@ -229,3 +229,26 @@ function deepClone(value, map = new WeakMap()) {
 // console.log(copy!== original); // true
 // console.log(copy.b!== original.b); // true
 // console.log(copy.self === copy); // true (circularity preserved)
+
+// Flipkart | Machine Coding Round: Robust Debounce Utility
+// Question: Implement a debounce utility. The interviewer will likely ask for the
+// "Immediate/Leading" flag as a follow-up
+
+function debounce(func, wait, immediate = false) {
+  let timeout;
+
+  // TODO: Logic to clear timeout and handle 'this' context
+  return function (...args) {
+    let context = this;
+    let callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      if (!immediate) func.apply(context, args);
+    }, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+
+// // Usage in UI:
+// const onSearch = debounce((e) => console.log("Searching for:", e.target.value), 300);
+// // document.getElementById('search').addEventListener('input', onSearch);
