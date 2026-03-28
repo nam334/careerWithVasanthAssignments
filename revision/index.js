@@ -234,21 +234,131 @@
 // Question: Implement a debounce utility. The interviewer will likely ask for the
 // "Immediate/Leading" flag as a follow-up
 
-function debounce(func, wait, immediate = false) {
-  let timeout;
+// function debounce(func, wait, immediate = false) {
+//   let timeout;
 
-  // TODO: Logic to clear timeout and handle 'this' context
-  return function (...args) {
-    let context = this;
-    let callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      if (!immediate) func.apply(context, args);
-    }, wait);
-    if (callNow) func.apply(context, args);
-  };
-}
+//   // TODO: Logic to clear timeout and handle 'this' context
+//   return function (...args) {
+//     let context = this;
+//     let callNow = immediate && !timeout;
+//     clearTimeout(timeout);
+//     timeout = setTimeout(() => {
+//       if (!immediate) func.apply(context, args);
+//     }, wait);
+//     if (callNow) func.apply(context, args);
+//   };
+// }
 
-// // Usage in UI:
+// // // Usage in UI:
 // const onSearch = debounce((e) => console.log("Searching for:", e.target.value), 300);
 // // document.getElementById('search').addEventListener('input', onSearch);
+
+//DSA QUESTIONS
+
+// Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+// Example 1:
+// Input: s = "anagram", t = "nagaram"
+// Output: true
+
+// Example 2:
+// Input: s = "rat", t = "car"
+// Output: false
+
+// var isAnagram = function (s, t) {
+//   if (s.length !== t.length) return false;
+//   let sMap = new Map();
+
+//   for (let i = 0; i < s.length; i++) {
+//     if (!sMap.has(s[i])) sMap.set(s[i], 1);
+//     else {
+//       let count = sMap.get(s[i]);
+//       sMap.set(s[i], count + 1);
+//     }
+//   }
+
+//   console.log(sMap);
+//   for (let i = 0; i < t.length; i++) {
+//     if (!sMap.has(t[i])) return false;
+//     else {
+//       let count = sMap.get(t[i]);
+
+//       if (count - 1 === 0) sMap.delete(t[i]);
+//       else sMap.set(t[i], count - 1);
+//     }
+//   }
+//   console.log("after", sMap.size);
+//   if (sMap.size === 0) return true;
+//   else return false;
+// };
+
+// console.log(isAnagram("anagram", "nagaram"));
+
+//GROUP ANAGRAM
+// Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+
+// Example 1:
+
+// Input: strs = ["eat","tea","tan","ate","nat","bat"]
+
+// Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+// Explanation:
+
+// There is no string in strs that can be rearranged to form "bat".
+// The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+// The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to form each other.
+// Example 2:
+
+// Input: strs = [""]
+
+// Output: [[""]]
+
+// Example 3:
+
+// Input: strs = ["a"]
+
+// Output: [["a"]]
+//strs = ["eat","tea","tan","ate","nat","bat"]
+// var groupAnagrams = function (strs) {
+//   let myMap = new Map();
+//   for (let i = 0; i < strs.length; i++) {
+//     console.log(strs[i].split("").sort().join(""));
+//     let sortedStr = strs[i].split("").sort().join("");
+//     if (!myMap.has(sortedStr)) {
+//       myMap.set(sortedStr, [strs[i]]);
+//     } else {
+//       let value = myMap.get(sortedStr);
+//       let newValue = [...value, strs[i]];
+//       myMap.set(sortedStr, newValue);
+//     }
+//   }
+//   return [...myMap.values()];
+// };
+
+// console.log(groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]));
+
+var groupAnagrams = function (strs) {
+  let myMap = new Map();
+  for (let i = 0; i < strs.length; i++) {
+    //create the frequency array
+    let freqArr = Array(26).fill(0);
+    let s = strs[i];
+    for (let j = 0; j < s.length; j++) {
+      let index = s[j].charCodeAt() - "a".charCodeAt(0);
+      ++freqArr[index];
+    }
+    //create the key
+    let key = "";
+    for (let k = 0; k < 26; k++)
+      key = key + String.fromCharCode(97 + k) + freqArr[k];
+
+    //fill the map
+    if (!myMap.has(key)) myMap.set(key, [s]);
+    else {
+      let value = myMap.get(key);
+      let newValue = [...value, s];
+      myMap.set(key, newValue);
+    }
+  }
+  return [...myMap.values()];
+};
