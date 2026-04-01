@@ -5,6 +5,8 @@ import heroImg from "./assets/hero.png";
 import "./App.css";
 import ParentComponent from "./features/q4";
 import ChatContainer from "./features/q1";
+import BoundedContainer from "./features/q2";
+import Multistepform from "./features/q3";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -12,7 +14,9 @@ function App() {
   return (
     <>
       {/* <ParentComponent /> */}
-      <ChatContainer />
+      {/* <ChatContainer /> */}
+      {/* <BoundedContainer /> */}
+      <Multistepform />
     </>
   );
 }
