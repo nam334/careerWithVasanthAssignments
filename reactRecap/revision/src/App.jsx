@@ -7,6 +7,7 @@ import ParentComponent from "./features/q4";
 import ChatContainer from "./features/q1";
 import BoundedContainer from "./features/q2";
 import Multistepform from "./features/q3";
+import LikeBtutton from "./features/q3";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -16,7 +17,8 @@ function App() {
       {/* <ParentComponent /> */}
       {/* <ChatContainer /> */}
       {/* <BoundedContainer /> */}
-      <Multistepform />
+      {/* <Multistepform /> */}
+      <LikeBtutton />
     </>
   );
 }
