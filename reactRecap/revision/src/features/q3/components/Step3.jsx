@@ -1,6 +1,6 @@
 import React from "react";
 
-const Step3 = () => {
+const Step3 = ({ state, dispatch }) => {
   return (
     <div>
       <div>
@@ -8,11 +8,24 @@ const Step3 = () => {
 
         <div>
           <label>Address</label>
-          <input type="text" placeholder="Enter address" />
+          <div>
+            <input
+              type="text"
+              placeholder="Enter address"
+              value={state.data.address}
+              onChange={(e) =>
+                dispatch({
+                  type: "UPDATE_FIELD",
+                  payload: {
+                    field: "address",
+                    value: e.target.value,
+                  },
+                })
+              }
+            />
+          </div>
+          <div>{state.errors.address && <div>{state.errors.address}</div>}</div>
         </div>
-
-        <button>Previous</button>
-        <button>Submit</button>
       </div>
     </div>
   );

@@ -30,6 +30,7 @@ export function reducer(currentState, action) {
       return {
         ...currentState,
         currentStep: currentState.currentStep + 1,
+        errors: {},
       };
     case "SET_ERRORS":
       return {
