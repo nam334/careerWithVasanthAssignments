@@ -3,11 +3,8 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
 import "./App.css";
-import ParentComponent from "./features/q4";
-import ChatContainer from "./features/recapp/ChatContainer";
-import BoundedContainer from "./features/q2";
-import Multistepform from "./features/q3";
-import LikeBtutton from "./features/q3";
+
+import MainContainer from "./features/recapp/MainContainer";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -19,7 +16,8 @@ function App() {
       {/* <BoundedContainer /> */}
       {/* <Multistepform /> */}
       {/* <LikeBtutton /> */}
-      <ChatContainer />
+      {/* <ChatContainer /> */}
+      <MainContainer />
     </>
   );
 }

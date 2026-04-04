@@ -1,1 +1,1 @@
-export { default } from "../recapp/ChatContainer";
+export { default } from "../recapp/MainContainer";
