@@ -4,7 +4,7 @@ import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
 import "./App.css";
 import ParentComponent from "./features/q4";
-import ChatContainer from "./features/q1";
+import ChatContainer from "./features/recapp/ChatContainer";
 import BoundedContainer from "./features/q2";
 import Multistepform from "./features/q3";
 import LikeBtutton from "./features/q3";
@@ -18,7 +18,8 @@ function App() {
       {/* <ChatContainer /> */}
       {/* <BoundedContainer /> */}
       {/* <Multistepform /> */}
-      <LikeBtutton />
+      {/* <LikeBtutton /> */}
+      <ChatContainer />
     </>
   );
 }
