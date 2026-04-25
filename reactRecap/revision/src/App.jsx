@@ -4,11 +4,14 @@ import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
 import "./App.css";
 
-import MainContainer from "./features/recapp/MainContainer";
+import MainComponent from "./features/infiniteScroll";
+const node = {
+  type: "div",
+  props: { className: "box" },
+  children: [{ type: "button", props: { text: "Click me" } }],
+};
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       {/* <ParentComponent /> */}
@@ -17,7 +20,9 @@ function App() {
       {/* <Multistepform /> */}
       {/* <LikeBtutton /> */}
       {/* <ChatContainer /> */}
-      <MainContainer />
+      {/* <MainContainer node={node} /> */}
+      {/* <Autocomplete /> */}
+      <MainComponent />
     </>
   );
 }

@@ -51,3 +51,62 @@
 // console.log("Test 2 (Different Roles):", isDeepEqual(profileA, profileC)); // Expected: false
 // console.log("Test 3 (Nested Change):", isDeepEqual(profileA, {...profileB, meta: { id: 2 } })); // Expected: false
 // console.log("Test 4 (Primitive):", isDeepEqual(10, 10)); // Expected: true
+
+// function createCounter() {
+//   let count = 0;
+//   return {
+//     increment() {
+//       count++;
+//       console.log("count is", count);
+//     },
+
+//     decrement() {
+//       count--;
+//       console.log("count is", count);
+//     },
+//   };
+// }
+
+// const counter = createCounter();
+// counter.increment();
+// counter.decrement();
+// console.log(counter.count);
+
+// let x = 10;
+
+// function outer() {
+//   let x = 5;
+//   inner();
+// }
+
+// function inner() {
+//   console.log(x);
+// }
+
+// outer();
+
+// let obj = {
+//   name: "namrata",
+//   print: () => {
+//     console.log(this.name, this);
+//   },
+// };
+
+// obj.print();
+
+function print() {
+  console.log(this.name);
+}
+
+const obj = { name: "namrata" };
+
+Function.prototype.mybind = function (args, ...args1) {
+  //console.log("this is", this);
+  let context = this;
+  return function (...args2) {
+    context.apply(args, [...args1, ...args2]);
+  };
+};
+
+const newfun = print.mybind(obj);
+newfun();
