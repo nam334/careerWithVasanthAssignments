@@ -1,28 +1,35 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
-import heroImg from "./assets/hero.png";
 import "./App.css";
-
-import MainComponent from "./features/infiniteScroll";
-const node = {
-  type: "div",
-  props: { className: "box" },
-  children: [{ type: "button", props: { text: "Click me" } }],
-};
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import Login from "./features/q6/pages/Login";
+import ProtectedRoute from "./features/q6/components/ProtectedRoute";
+import Admin from "./features/q6/pages/Admin";
+import Home from "./features/q6/pages/Home";
+import Dashboard from "./features/q6/pages/Dashboard";
+import Unauthorized from "./features/q6/pages/Unauthorized";
 
 function App() {
   return (
     <>
-      {/* <ParentComponent /> */}
-      {/* <ChatContainer /> */}
-      {/* <BoundedContainer /> */}
-      {/* <Multistepform /> */}
-      {/* <LikeBtutton /> */}
-      {/* <ChatContainer /> */}
-      {/* <MainContainer node={node} /> */}
-      {/* <Autocomplete /> */}
-      <MainComponent />
+      <BrowserRouter>
+        <Routes>
+          {/* public routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
+
+          {/* protected routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+          {/* admin only */}
+          <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+            <Route path="/admin" element={<Admin />} />
+          </Route>
+
+          {/* fallback */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
