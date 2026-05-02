@@ -1,35 +1,29 @@
-// Zeta | Technical Round: Deep Equality Utility
-// Question: Implement isDeepEqual(obj1, obj2). This is essential in frontend development
-// for optimizing re-renders in components where you only want to update if the data
-// actually changed.
+// Swiggy | Machine Coding: Recursive Array Flattening
+// Question: Implement a polyfill for Array.prototype.flat().
+// Your implementation must handle the depth argument correctly.
 
-function isDeepEqual(obj1, obj2) {
-  // 1. Check if same reference
-  if (obj1 === obj2) return true;
-  // 2. Check types
-  if (typeof obj1 !== typeof obj2) return false;
+const nestedData = [2, [7, [8]]];
 
-  //null chk
-  if (obj1 === null || obj2 === null) return obj1 === obj2;
-  // 3. Recursive key-by-key comparison
+// /**
+//  * @param {Array} arr
+//  * @param {number} depth
+//  */
+function customFlat(arr, depth = 1) {
+  let result = [];
+  // Your recursive implementation here
+  if (depth === 0) return arr;
 
-  let obj1keys = Object.keys(obj1);
-  let obj2keys = Object.keys(obj2);
-  if (obj1keys.length !== obj2keys.length) return false;
-
-  for (let key of obj1keys) {
-    if (!obj2.hasOwnProperty(key)) return false;
-    if (!isDeepEqual(obj1[key], obj2[key])) return false;
+  for (let i = 0; i < arr.length; i++) {
+    if (!Array.isArray(arr[i])) result.push(arr[i]);
+    else {
+      let val = customFlat(arr[i], depth - 1);
+      result.push(...val);
+    }
   }
-  return true;
+  return result;
 }
 
-// // --- Test Cases ---
-// const profileA = { name: "Vasanth", roles: ["admin", "mentor"], meta: { id: 1 } };
-// const profileB = { name: "Vasanth", roles: ["admin", "mentor"], meta: { id: 1 } };
-// const profileC = { name: "Vasanth", roles: ["admin"], meta: { id: 1 } };
-
-// console.log("Test 1 (Identical):", isDeepEqual(profileA, profileB)); // Expected: true
-// console.log("Test 2 (Different Roles):", isDeepEqual(profileA, profileC)); // Expected: false
-// console.log("Test 3 (Nested Change):", isDeepEqual(profileA, {...profileB, meta: { id: 2 } })); // Expected: false
-// console.log("Test 4 (Primitive):", isDeepEqual(10, 10)); // Expected: true
+console.log(customFlat(nestedData, 1));
+// [3, [7, 8]]
+// console.log(customFlat(nestedData, 2)); // [7, 8]
+// console.log(customFlat(nestedData, Infinity)); // [9, 10, 11, 7, 8, 12]
