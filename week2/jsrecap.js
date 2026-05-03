@@ -1,29 +1,23 @@
-// Swiggy | Machine Coding: Recursive Array Flattening
-// Question: Implement a polyfill for Array.prototype.flat().
-// Your implementation must handle the depth argument correctly.
+//Largest consequtive sequence
 
-const nestedData = [2, [7, [8]]];
-
-// /**
-//  * @param {Array} arr
-//  * @param {number} depth
-//  */
-function customFlat(arr, depth = 1) {
-  let result = [];
-  // Your recursive implementation here
-  if (depth === 0) return arr;
-
-  for (let i = 0; i < arr.length; i++) {
-    if (!Array.isArray(arr[i])) result.push(arr[i]);
-    else {
-      let val = customFlat(arr[i], depth - 1);
-      result.push(...val);
-    }
+var longestConsecutive = function (nums) {
+  if (nums.length === 0) return 0;
+  nums = nums.sort((a, b) => a - b);
+  let myset = new Set(nums);
+  let newArr = [...myset];
+  if (newArr.length === 1) return 1;
+  console.log("newarr is", newArr);
+  let j = 0,
+    count = 1,
+    max = 1;
+  while (j < newArr.length) {
+    if (newArr[j] + 1 === newArr[j + 1]) {
+      count++;
+      max = Math.max(max, count);
+    } else count = 1;
+    j++;
   }
-  return result;
-}
+  return max;
+};
 
-console.log(customFlat(nestedData, 1));
-// [3, [7, 8]]
-// console.log(customFlat(nestedData, 2)); // [7, 8]
-// console.log(customFlat(nestedData, Infinity)); // [9, 10, 11, 7, 8, 12]
+console.log(longestConsecutive([100, 4, 200, 1, 3, 2]));
